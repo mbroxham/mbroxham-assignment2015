@@ -1,0 +1,71 @@
+@(msg: String)(topics: List[Topic])(users: List[User])
+
+@main("Search"){
+
+<script type="text/javascript">
+        function showSearchButton(){
+            if(document.getElementById('searchTxt').value != ''){
+                document.getElementById("searchButton").disabled = false;
+                document.getElementById("searchButton").className = "specialButton";
+                document.getElementById("searchButton").value = "Search"
+            } else{
+                document.getElementById("searchButton").disabled = true;
+                document.getElementById("searchButton").className = "specialButtonDisabled";
+                document.getElementById("searchButton").value = "Type Something";
+            }
+        }
+
+        function filterResults(type){
+            document.getElementById("topicDiv").className = "";
+            document.getElementById("userDiv").className = "";
+            document.getElementById("showTopicsButton").className = "switchButton3";
+            document.getElementById("showUsersButton").className = "switchButton3";
+            document.getElementById("showAllButton").className = "switchButton3";
+            if(type == "topic"){
+                document.getElementById("userDiv").className = "displayNone";
+                document.getElementById("showTopicsButton").className = "switchButton3Disabled";
+            } else if(type == "user"){
+                document.getElementById("topicDiv").className = "displayNone";
+                document.getElementById("showUsersButton").className = "switchButton3Disabled";
+            } else{
+                document.getElementById("showAllButton").className = "switchButton3Disabled";
+            }
+
+        }
+    </script>
+
+<div>
+    <form action="searchResults" method="post">
+        <input type="text" id="searchTxt" name="searchTxt" class="textbox" placeholder="  Search for Something" onkeyup="showSearchButton();">
+        <input type="submit" id="searchButton" value="Type Something" class="specialButtonDisabled" disabled="true">
+    </form>
+</div>
+<hr />
+<button id="showTopicsButton" onclick="filterResults('topic')" class="switchButton3">Topics</button>
+<button id="showUsersButton" onclick="filterResults('user')" class="switchButton3">Users</button>
+<button id="showAllButton" onclick="filterResults('all')" class="switchButton3Disabled">Everything</button>
+<hr />
+
+<p>Results: @topics.size</p>
+
+<div id="topicDiv">
+    @for(topic <- topics){
+    <p class="searchResult">
+        Topic: <a href="topic?t=@topic.getGid()">@topic.getTopic()</a>
+    <hr/>
+    </p>
+    }
+</div>
+
+<div id="userDiv">
+    @for(user <- users){
+    <p class="searchResult">
+        User: <a href="user?un=@user.getUsername()">@user.getUsername()</a>
+    <hr/>
+    </p>
+
+    }
+</div>
+
+
+}

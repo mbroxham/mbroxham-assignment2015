@@ -1,0 +1,122 @@
+@(user: User)(messages: List[MessageView])(showPost: Boolean)
+
+@main("Home"){
+<div>
+    <script type="text/javascript">
+            @if(showPost){
+                window.onload = function() {
+                  flipPage('post');
+                };
+            }
+
+            function countPost(){
+                var counter = document.getElementById("postCount");
+                var post = document.getElementById("postTxt");
+                var len = post.value.length;
+                if(len > 140){
+                    post.value = post.value.substring(0,140);
+                }
+                len = post.value.length;
+                counter.innerHTML = len.toString().concat("/140");
+
+                if(len > 0){
+                    document.getElementById("postButton").disabled = false;
+                    document.getElementById("postButton").className = "specialButton";
+                    document.getElementById("postButton").value = "Post"
+                } else{
+                    document.getElementById("postButton").disabled = true;
+                    document.getElementById("postButton").className = "specialButtonDisabled";
+                    document.getElementById("postButton").value = "Type Something";
+                }
+
+                return false;
+            }
+
+            function sizePostBox(size){
+                if(document.getElementById("postTxt").value.length > 0){
+                    document.getElementById("postTxt").rows = "3";
+                } else{
+                    document.getElementById("postTxt").rows = size;
+                }
+
+            }
+
+            function flipPage(type){
+                if(type == "logout"){
+                    document.getElementById("accountDiv").className = "";
+                    document.getElementById("postSomethingButton").className = "displayNone";
+                    document.getElementById("logoutButton").className = "displayNone";
+                    document.getElementById("logoutDiv").className = "";
+                    document.getElementById("postDiv").className = "displayNone";
+                    document.getElementById("postFeed").className = "displayNone";
+                } else if(type == "post"){
+                    document.getElementById("accountDiv").className = "displayNone";
+                    document.getElementById("postSomethingButton").className = "displayNone";
+                    document.getElementById("logoutButton").className = "displayNone";
+                    document.getElementById("logoutDiv").className = "displayNone";
+                    document.getElementById("postDiv").className = "";
+                    document.getElementById("postFeed").className = "";
+                } else if(type == "account"){
+                    document.getElementById("accountDiv").className = "";
+                    document.getElementById("postSomethingButton").className = "specialButton";
+                    document.getElementById("logoutButton").className = "specialButton";
+                    document.getElementById("logoutDiv").className = "displayNone";
+                    document.getElementById("postDiv").className = "displayNone";
+                    document.getElementById("postFeed").className = "";
+                }
+            }
+
+        </script>
+
+    <!--ACCOUNT SCREEN-->
+    <div id="accountDiv">
+        <h2><strong>Username: </strong>@user.getUsername()</h2>
+        <h2><strong>Email: </strong>@user.getEmail()</h2>
+        <input type="submit" id="postSomethingButton" value="Post Something" class="specialButton" onclick="flipPage('post')">
+
+        <input type="submit" id="logoutButton" value="Logout" class="specialButton" onclick="flipPage('logout')">
+        <hr/>
+    </div>
+
+    <!--LOGOUT SCREEN-->
+    <div id="logoutDiv" class="displayNone">
+        <h2>Logout?</h2>
+        <a href="logout-action?all=f" class="buttonLink">Logout of THIS device</a>
+        <a href="logout-action?all=t" class="buttonLink">Logout of ALL devices</a>
+        <br><br>
+        <input type="submit" value="Cancel" class="specialButton" onclick="flipPage('account')">
+    </div>
+
+    <!--POST MESSAGE SCREEN-->
+    <div id="postDiv" class="displayNone">
+        <form action="postmessage" method="post">
+            <!--<input type="text" id="loginEmail" name="postTxt" class="textbox" placeholder="  Post Something" onkeyup="validateLogin();">-->
+            <textarea name="postTxt" rows="1" cols="50" id="postTxt" onkeyup="countPost();" onfocus="sizePostBox('3');" onblur="sizePostBox('1');" class="postbox" placeholder="  Post Something"></textarea>
+            <input type="submit" id="postButton" value="Type Something" class="specialButtonDisabled" disabled="true"> <span id="postCount">0/140</span>
+
+        </form>
+        <br>
+        <input type="submit" value="Cancel" class="linkButton" onclick="flipPage('account')">
+
+    </div>
+
+    <!--MESSAGE SCREEN-->
+    <div id="postFeed">
+        <h2>My Recent Posts</h2>
+        <hr />
+        @for(message <- messages){
+        <p>
+            <span class="messageUsername">@message.getUsername()</span><br>
+            <span class="messageText">@Html(message.getMessage())</span><br>
+            <span class="messageTime">@message.getMessageTime()</span><hr>
+        </p>
+        }
+    </div>
+
+</div>
+
+
+
+
+}
+

@@ -1,0 +1,36 @@
+@(msg: String)(messages: List[MessageView])
+
+@main("Messages"){
+
+<script type="text/javascript">
+            function showSearchButton(){
+                if(document.getElementById('searchTxt').value != ''){
+                    document.getElementById("searchButton").disabled = false;
+                    document.getElementById("searchButton").className = "specialButton";
+                    document.getElementById("searchButton").value = "Search"
+                } else{
+                    document.getElementById("searchButton").disabled = true;
+                    document.getElementById("searchButton").className = "specialButtonDisabled";
+                    document.getElementById("searchButton").value = "Type Something";
+                }
+            }
+        </script>
+
+<div>
+    <form action="searchResults" method="post">
+        <input type="text" id="searchTxt" name="searchTxt" class="textbox" placeholder="  Search for Something" onkeyup="showSearchButton();">
+        <input type="submit" id="searchButton" value="Type Something" class="specialButtonDisabled" disabled="true">
+    </form>
+</div>
+<h2>@msg</h2>
+<hr/>
+
+@for(message <- messages){
+<p>
+    <span class="messageUsername">@message.getUsername()</span><br>
+    <span class="messageText">@Html(message.getMessage)</span><br>
+    <span class="messageTime">@message.getMessageTime</span><hr>
+</p>
+}
+
+}

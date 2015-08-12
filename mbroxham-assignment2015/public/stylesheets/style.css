@@ -1,0 +1,244 @@
+body{
+    background-color: #C2C7CF;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+p{
+    font-size: 1.3em;
+    color: #999999;
+}
+
+.wholeBody{
+    width: 600px;
+    background-color: white;
+    margin: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.mainBody{
+    padding: 10px;
+}
+
+h1{
+    text-align: center;
+    margin: auto;
+    background-color: #96c03d;
+    color: black;
+    text-shadow: 2px 2px #999999;
+    padding: 10px 0;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.displayNone{
+    display: none;
+}
+
+.centrePadding{
+    padding: 10px;
+    text-align: center;
+}
+
+.specialButton{
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: #32C98D;
+    color: white;
+    padding: 7px 15px 7px 15px;
+    width: 250px;
+    border: solid 2px #1AA36C;
+}
+
+.specialButton:hover{
+    background-color: #999999;
+    cursor: pointer;
+}
+
+.specialButtonDisabled{
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: #999999;
+    color: black;
+    padding: 7px 15px 7px 15px;
+    width: 250px;
+    border: solid 2px black;
+}
+
+.linkButton{
+    background-color: white;;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    font-size: 1.3em;
+}
+
+.linkButton:hover{
+    cursor: pointer;
+    background-color: #999999;
+    color: white;
+    text-decoration: none;
+}
+
+.buttonLink{
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: #32C98D;
+    color: white;
+    padding: 7px 15px 7px 15px;
+    border: solid 2px #1AA36C;
+    text-decoration: none;
+}
+
+.buttonLink:hover{
+    background-color: #999999;
+    cursor: pointer;
+}
+
+.textbox{
+    font-size: 1.5em;
+    color: #999999;
+    border: solid 4px #999999;
+    padding-left; 5px;
+    height: 40px;
+    font-weight: bold;
+}
+
+.textbox:focus{
+    background-color: #DFE0B8;
+    border: solid 4px #62D2E3;
+}
+
+.welcomeDiv{
+    text-align: center;
+}
+
+.postbox{
+    font-size: 1.5em;
+    color: #999999;
+    border: solid 4px #999999;
+    padding-left; 5px;
+    font-weight: bold;
+}
+
+.postbox:focus{
+    background-color: #DFE0B8;
+    border: solid 4px #62D2E3;
+}
+
+.textboxGreen{
+    font-size: 1.5em;
+    color: #999999;
+    border: solid 4px #4DB37E;
+    padding-left; 5px;
+    height: 40px;
+    font-weight: bold;
+    background-color: #83F7BB;
+}
+
+.textboxGreen:focus{
+    background-color: #DFE0B8;
+    border: solid 4px #62D2E3;
+}
+
+.textboxRed{
+    font-size: 1.5em;
+    color: #999999;
+    border: solid 4px #DE8E97;
+    padding-left; 5px;
+    height: 40px;
+    font-weight: bold;
+    background-color: #F7D2D7;
+}
+
+.textboxRed:focus{
+    background-color: #DFE0B8;
+    border: solid 4px #62D2E3;
+}
+
+.label{
+    color: #787878;
+}
+
+.switchButton{
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: rgba(207, 207, 207, 0.1);
+    color: black;
+    padding: 7px 15px 7px 15px;
+    border: solid 2px rgba(207, 207, 207, 0.1);
+    width: 49%;
+    margin: 0;
+}
+
+.switchButton:hover{
+    background-color: rgba(207, 207, 207, 0.5);
+    cursor: pointer;
+    border: solid 2px rgba(207, 207, 207, 0.5);
+}
+
+.switchButtonDisabled{
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: rgba(153, 153, 153, 0.5);
+    color: black;
+    padding: 7px 15px 7px 15px;
+    border: solid 2px black;
+    width: 49%;
+    margin: 0;
+}
+
+.switchButton3{
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: rgba(207, 207, 207, 0.1);
+    color: black;
+    padding: 7px 15px 7px 15px;
+    border: solid 2px rgba(207, 207, 207, 0.1);
+    width: 32%;
+    margin: 0;
+}
+
+.switchButton3:hover{
+    background-color: rgba(207, 207, 207, 0.5);
+    cursor: pointer;
+    border: solid 2px rgba(207, 207, 207, 0.5);
+}
+
+.switchButton3Disabled{
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: rgba(153, 153, 153, 0.5);
+    color: black;
+    padding: 7px 15px 7px 15px;
+    border: solid 2px rgba(153, 153, 153, 0.5);
+    width: 32%;
+    margin: 0;
+}
+
+.validationMessage{
+    color: red;
+    text-align:center;
+}
+
+.messageUsername{
+    color:black;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.messageText{
+
+}
+
+.messageTime{
+    font-style: italic;
+    font-size: .7em;
+}
+
+.searchResult{
+    font-size: 1.3em;
+    font-weight: bold;
+}
+

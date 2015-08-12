@@ -1,0 +1,191 @@
+@(msg: String)
+
+@main("Login or Join"){
+<script type="text/javascript">
+        function showLogin(){
+            document.getElementById('welcomeDiv').className = "displayNone";
+            document.getElementById('signUpDiv').className = "displayNone";
+            document.getElementById('loginDiv').className = "centrePadding";
+            document.getElementById('loginButton').className = "switchButtonDisabled";
+            document.getElementById('signUpButton').className = "switchButton";
+        }
+
+        function showSignUp(){
+            document.getElementById('welcomeDiv').className = "displayNone";
+            document.getElementById('loginDiv').className = "displayNone";
+            document.getElementById('signUpDiv').className = "centrePadding";
+            document.getElementById('signUpButton').className = "switchButtonDisabled";
+            document.getElementById('loginButton').className = "switchButton";
+        }
+
+        function validateLogin(){
+            var regex = /^([\w-]+(?:\.[\w-]+)*)@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            var validEmail = false;
+            var validPw = false;
+            if(document.getElementById('loginEmail').value == ''){
+                document.getElementById('loginEmailValidateMessage').innerHTML = "Enter Your Email";
+                document.getElementById('loginEmail').className = 'textboxRed';
+                validEmail = false;
+            } else if(!regex.test(document.getElementById('loginEmail').value)){
+                document.getElementById('loginEmailValidateMessage').innerHTML = "Invalid Email Address";
+                document.getElementById('loginEmail').className = 'textboxRed';
+                validEmail = false;
+            } else{
+                document.getElementById('loginEmailValidateMessage').innerHTML = "";
+                document.getElementById('loginEmail').className = 'textboxGreen';
+                validEmail = true;
+            }
+
+            if(document.getElementById('loginPw').value == ''){
+                document.getElementById('loginPwValidateMessage').innerHTML = "Enter Your Password";
+                document.getElementById('loginPw').className = 'textboxRed';
+                validPw = false;
+            } else if(document.getElementById('loginPw').value.length < 6){
+                document.getElementById('loginPwValidateMessage').innerHTML = "Password is at least 6 characters";
+                document.getElementById('loginPw').className = 'textboxRed';
+                validPw = false;
+            } else{
+                document.getElementById('loginPwValidateMessage').innerHTML = "";
+                document.getElementById('loginPw').className = 'textboxGreen';
+                validPw = true;
+            }
+
+            if(validPw && validEmail){
+                document.getElementById('loginActionButton').disabled = false;
+                document.getElementById('loginActionButton').className = 'specialButton';
+            } else{
+                document.getElementById('loginActionButton').disabled = true;
+                document.getElementById('loginActionButton').className = 'specialButtonDisabled';
+            }
+
+        }
+
+        function validateSignUp(){
+            var regex = /^([\w-]+(?:\.[\w-]+)*)@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            var validUser = false;
+            var validEmail = false;
+            var validPw = false;
+            var validMatch = false;
+
+            if(document.getElementById('username').value == ''){
+                document.getElementById('usernameValidateMessage').innerHTML = "Enter a Username";
+                document.getElementById('username').className = 'textboxRed';
+                validUser = false;
+            } else if(document.getElementById('username').value.length < 3){
+                document.getElementById('usernameValidateMessage').innerHTML = "Username must be at least 3 characters";
+                document.getElementById('username').className = 'textboxRed';
+                validUser = false;
+            } else{
+                document.getElementById('usernameValidateMessage').innerHTML = "";
+                document.getElementById('username').className = 'textboxGreen';
+                validUser = true;
+            }
+
+            if(document.getElementById('signUpEmail').value == ''){
+                document.getElementById('signUpEmailValidateMessage').innerHTML = "Enter Your Email";
+                document.getElementById('signUpEmail').className = 'textboxRed';
+                validEmail = false;
+            } else if(!regex.test(document.getElementById('signUpEmail').value)){
+                document.getElementById('signUpEmailValidateMessage').innerHTML = "Invalid Email Address";
+                document.getElementById('signUpEmail').className = 'textboxRed';
+                validEmail = false;
+            } else{
+                document.getElementById('signUpEmailValidateMessage').innerHTML = "";
+                document.getElementById('signUpEmail').className = 'textboxGreen';
+                validEmail = true;
+            }
+
+            if(document.getElementById('signUpPw').value == ''){
+                document.getElementById('signUpPwValidateMessage').innerHTML = "Enter a Password";
+                document.getElementById('signUpPw').className = 'textboxRed';
+                validPw = false;
+            } else if(document.getElementById('signUpPw').value.length < 6){
+                document.getElementById('signUpPwValidateMessage').innerHTML = "Password needs at least 6 characters";
+                document.getElementById('signUpPw').className = 'textboxRed';
+                validPw = false;
+            } else{
+                document.getElementById('signUpPwValidateMessage').innerHTML = "";
+                document.getElementById('signUpPw').className = 'textboxGreen';
+                validPw = true;
+            }
+
+            if(validPw){
+                if(document.getElementById('signUpPw').value != document.getElementById('signUpPwMatch').value){
+                    document.getElementById('signUpPwMatchValidateMessage').innerHTML = "Passwords Don't Match";
+                    document.getElementById('signUpPwMatch').className = 'textboxRed';
+                    validMatch = false;
+                } else{
+                    document.getElementById('signUpPwMatchValidateMessage').innerHTML = "";
+                    document.getElementById('signUpPwMatch').className = 'textboxGreen';
+                    validMatch = true;
+                }
+            } else {
+                document.getElementById('signUpPwMatchValidateMessage').innerHTML = "";
+                    document.getElementById('signUpPwMatch').className = 'textbox';
+            }
+
+            if(validPw && validEmail && validMatch && validUser){
+                document.getElementById('signUpActionButton').disabled = false;
+                document.getElementById('signUpActionButton').className = 'specialButton';
+            } else{
+                document.getElementById('signUpActionButton').disabled = true;
+                document.getElementById('signUpActionButton').className = 'specialButtonDisabled';
+            }
+
+
+        }
+
+    </script>
+<button id="loginButton" onclick="showLogin()" class="switchButton">Login</button>
+<button id="signUpButton" onclick="showSignUp()" class="switchButton">Sign Up</button>
+<hr>
+<p class="validationMessage">@msg</p>
+<div id="welcomeDiv" class="welcomeDiv">
+    <p>Welcome to something like Twitter.</p>
+    <p>It's something like Twitter, but its not Twitter</p>
+    <p>
+        <button class="linkButton" onclick="showLogin()">Login</button> or <button class="linkButton" onclick="showSignUp()">Sign Up</button> to get started.
+    </p>
+
+</div>
+
+
+<div id="loginDiv" class="displayNone">
+    <h2>Login</h2>
+    <form action="login" method="post">
+        <input type="text" id="loginEmail" name="loginEmail" class="textbox" placeholder="  Email" onkeyup="validateLogin();">
+        <br>
+        <span id="loginEmailValidateMessage" class="validationMessage"></span>
+        <br>
+        <input type="password" id="loginPw" name="loginPw" class="textbox" placeholder="  Password" onkeyup="validateLogin();">
+        <br>
+        <span id="loginPwValidateMessage" class="validationMessage"></span>
+        <br>
+        <input type="submit" id="loginActionButton" value="Login" class="specialButtonDisabled" disabled="true">
+    </form>
+</div>
+
+<div id="signUpDiv" class="displayNone">
+    <h2>Sign up to Something Like Twitter</h2>
+    <form action="sign-up" method="post">
+        <input type="text" id="username" name="username" class="textbox" placeholder="  Username" onkeyup="validateSignUp();">
+        <br>
+        <span id="usernameValidateMessage" class="validationMessage"></span>
+        <br>
+        <input type="text" id="signUpEmail" name="signUpEmail" class="textbox" placeholder="  Email" onkeyup="validateSignUp();">
+        <br>
+        <span id="signUpEmailValidateMessage" class="validationMessage"></span>
+        <br>
+        <input type="password" id="signUpPw" name="signUpPw" class="textbox" placeholder="  Password" onkeyup="validateSignUp();">
+        <br>
+        <span id="signUpPwValidateMessage" class="validationMessage"></span>
+        <br>
+        <input type="password" id="signUpPwMatch" name="signUpPwMatch" class="textbox" placeholder="  Confirm Password" onkeyup="validateSignUp();">
+        <br>
+        <span id="signUpPwMatchValidateMessage" class="validationMessage"></span>
+        <br>
+        <input type="submit" id="signUpActionButton" value="Sign Up" class="specialButtonDisabled" disabled="true">
+    </form>
+</div>
+
+}
