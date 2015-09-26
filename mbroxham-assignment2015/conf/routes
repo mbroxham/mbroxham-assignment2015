@@ -26,8 +26,12 @@ GET     /topic                      controllers.Messages.getTopicsMessages(t:Str
 GET     /user                       controllers.Messages.getUsernameMessages(un:String)
 
 POST    /api/postmessage            controllers.API.postMessage()
+POST    /api/postmessage/:message   controllers.API.postMessageString(message:String)
 GET     /api/users/:username        controllers.API.userMessages(username: String)
 GET     /api/tags/:tag              controllers.API.tagMessages(tag: String)
+
+GET     /spa                        controllers.SPA.test()
+GET     /ws                         controllers.SPA.socket(socketType:String)
 
 
 

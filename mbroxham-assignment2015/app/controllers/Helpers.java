@@ -11,6 +11,18 @@ import play.data.*;
 import java.util.*;
 import java.util.regex.*;
 import views.html.*;
+import com.mongodb.BasicDBObject;
+import com.mongodb.BulkWriteOperation;
+import com.mongodb.BulkWriteResult;
+import com.mongodb.Cursor;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.ParallelScanOptions;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.FindIterable;
 
 /**
  *
@@ -21,6 +33,8 @@ public class Helpers extends Controller{
     public static final int RECENT_MESSAGE_COUNT = 40;
     public static final int MAX_MESSAGE_LENGTH = 140;
     public static final int MIN_USERNAME_LENGTH = 3;
+    public static final MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+    //public static DB dbConnection = mongoClient.getDB("mb2");
 
     public static Boolean isValidEmail(String email){
         return EMAIL_PATTERN.matcher(email).matches();
@@ -71,6 +85,13 @@ public class Helpers extends Controller{
             User.killActiveSession(userID);
         }
     }
+
+    public static DB dbConnection(){
+        //MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+        DB db = mongoClient.getDB("mb2");
+        return db;
+    }
+
 
 
 }

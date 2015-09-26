@@ -31,7 +31,7 @@ public class Users extends Controller  {
                         if (df.get("signUpPw").length() >= 6) {
                             //6. Success.
                             User newUser = new User(df.get("signUpEmail"), df.get("signUpPw"),df.get("username"));
-                            User.users.add(newUser);
+                            //User.users.add(newUser); //Removed from A1
                             Helpers.loginUser(newUser.getIdUser());
                             return ok(home.render(newUser,MessageView.getMessageViews(Message.lastMessageIDsForUser(newUser.getIdUser(), Helpers.RECENT_MESSAGE_COUNT)),false));
                         } else {
@@ -76,5 +76,6 @@ public class Users extends Controller  {
             return unauthorized(welcome.render("Incorrect Password/Email"));
         }
     }
+
 
 }

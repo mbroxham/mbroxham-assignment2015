@@ -53,7 +53,14 @@ public class Messages extends Controller {
         User user = Helpers.sessionUser();
         if(user != null){
             Message newMsg = new Message(msg,user.getIdUser());
-            Message.messages.add(newMsg);
+            //Message.messages.add(newMsg);
+            //List<MessageView> results = MessageView.getMessageViews(Message.lastMessageIDsForUser(user.getIdUser(), Helpers.RECENT_MESSAGE_COUNT));
+            List<Integer> id  = new ArrayList<Integer>();
+            id.add(newMsg.getIdMessage());
+            List<MessageView> results = MessageView.getMessageViews(id);
+            MessageHub.getInstance().send(results);
+            SearchMessageHub.getInstance().send(results);
+
             return ok(home.render(user,MessageView.getMessageViews(Message.lastMessageIDsForUser(user.getIdUser(), Helpers.RECENT_MESSAGE_COUNT)),true));
         } else{
             return unauthorized(welcome.render(""));

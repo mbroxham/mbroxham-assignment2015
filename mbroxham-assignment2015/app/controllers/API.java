@@ -19,15 +19,28 @@ public class API extends Controller{
 
     //@BodyParser.Of(BodyParser.Json.class)
     public Result postMessage(){
+        return postMessageBase(request().body().asText());
+    }
+
+    public Result postMessageString(String message){
+        return postMessageBase(message);
+    }
+
+    public Result postMessageBase(String message)
+    {
         //if trying to post with no session or a bad session id
         if(Helpers.sessionUser() == null){
             return unauthorized();
         } else{
-            Message newMsg = new Message(request().body().asText(),Helpers.sessionUser().getIdUser());
-            Message.messages.add(newMsg);
+            Message newMsg = new Message(message,Helpers.sessionUser().getIdUser());
+            //Message.messages.add(newMsg);
+            List<Integer> id  = new ArrayList<Integer>();
+            id.add(newMsg.getIdMessage());
+            List<MessageView> results = MessageView.getMessageViews(id);
+            MessageHub.getInstance().send(results);
+            SearchMessageHub.getInstance().send(results);
             return ok("Message Posted");
         }
-
     }
 
     public Result userMessages(String username){
@@ -37,8 +50,16 @@ public class API extends Controller{
 
 
     public Result tagMessages(String tag){
-        List<MessageView> results = MessageView.getMessageViews(MessageTag.messagesWithTopics(Topic.getTopicFromTopic("#" + tag).getIdTopic()));
+        int topicID = 0;
+        Topic topic = Topic.getTopicFromTopic("#" + tag);
+        if(topic != null){
+            topicID = topic.getIdTopic();
+        }
+        List<MessageView> results = MessageView.getMessageViews(MessageTag.messagesWithTopics(topicID));
+
         return ok(Json.toJson(results));
     }
+
+
 
 }
